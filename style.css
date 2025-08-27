@@ -1,71 +1,87 @@
+/* ========== Base ========== */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
 :root{--ring:#0a0a0a;--muted:#666;--line:#e8e8e8;--bg:#fafafa}
 
-.site-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+/* ========== Header ========== */
+.site-header{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:14px 16px;border-bottom:1px solid var(--line);background:#fff;
+  position:sticky;top:0;z-index:10
+}
 .brand h1{margin:0;font-size:22px}
 .subtitle{margin:2px 0 0;color:var(--muted);font-size:13px}
+.right-actions{display:flex;gap:8px;align-items:center}
 
-/* Pulsanti header: IT / Tema / Installa (fix testo invisibile) */
+/* Pulsanti header: IT / Tema / Installa (testo sempre visibile) */
 .install-btn{
-  padding:6px 12px;
-  border:1px solid #ccc;
-  border-radius:999px;
-  background:#fff;
-  color:#111 !important;     /* testo scuro su sfondo chiaro */
-  font-size:14px;
-  cursor:pointer;
-  transition:all .2s ease;
-  box-shadow:0 1px 2px rgba(0,0,0,.05);
+  padding:6px 12px;border:1px solid #ccc;border-radius:999px;
+  background:#fff;color:#111 !important;font-size:14px;cursor:pointer;
+  transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,.05)
 }
-.install-btn:hover{
-  background:#f6f6f6;
-  border-color:#999;
-  box-shadow:0 2px 4px rgba(0,0,0,.1);
-}
+.install-btn:hover{background:#f6f6f6;border-color:#999;box-shadow:0 2px 4px rgba(0,0,0,.1)}
 .install-btn:active{transform:scale(.96)}
 
+/* ========== Layout ========== */
 main{padding:12px}
 
+/* Tabs (fix definitivo contrasto) */
 .tabs{display:flex;gap:8px;margin-bottom:12px}
-.tab{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
-.tab.active{border-color:#111}
+button.tab{
+  padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+  background:#fff !important;color:#111 !important;cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,color .2s ease;
+  font-weight:600
+}
+button.tab:hover{background:#f6f6f6 !important;border-color:#999 !important}
+button.tab.active{border-color:#111 !important}
 
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 
+/* Cards & grid */
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
 .card{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
 .card.full{grid-column:1/-1}
 .card.actions{display:flex;gap:8px;align-items:center}
 
+/* Form */
 label{display:flex;flex-direction:column;gap:6px;margin:6px 0}
 input,select,textarea,button{font:inherit}
 input,select,textarea{padding:8px;border:1px solid #ccc;border-radius:8px}
 textarea{width:100%;resize:vertical}
 
-/* Pulsanti azione principali */
+/* Pulsanti azione principali (Calcola/Reset/Export) */
 button{padding:10px 14px;border:1px solid #ccc;border-radius:8px;background:#111;color:#fff;cursor:pointer}
 button.secondary{background:#fff;color:#111}
 button.ghost{background:#fff;color:#111;border-style:dashed}
 
+/* Helpers */
 .result{margin-top:8px;color:#111;font-weight:600}
 .muted{color:var(--muted);font-size:12px}
 .site-footer{padding:16px;text-align:center;color:#777;border-top:1px solid var(--line);background:var(--bg)}
 
+/* Row helpers (usati in index.html) */
+.row-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+/* ========== Responsive ========== */
 @media (max-width:960px){
   .card{grid-column:span 12}
   .row-4{grid-template-columns:repeat(2,1fr)}
   .row-3{grid-template-columns:repeat(2,1fr)}
 }
 
-/* --- DARK MODE (auto + manuale) SOLO per evitare testo invisibile sui pulsanti header --- */
+/* ========== Dark mode (auto + manuale) ========== */
 @media (prefers-color-scheme: dark){
   .install-btn{background:#121212;color:#e6e6e6 !important;border-color:#444;box-shadow:0 1px 2px rgba(255,255,255,.05)}
   .install-btn:hover{background:#1d1d1d;border-color:#888;box-shadow:0 2px 4px rgba(255,255,255,.08)}
+  button.tab{background:#121212 !important;color:#e6e6e6 !important;border-color:#444 !important}
+  button.tab:hover{background:#1d1d1d !important;border-color:#777 !important}
+  button.tab.active{border-color:#e6e6e6 !important}
 }
-:root[data-theme='dark'] .install-btn{
-  background:#121212;
-  color:#e6e6e6 !important;
-  border-color:#444;
-}
+/* Override manuale quando l'utente forza il tema */
+:root[data-theme='dark'] .install-btn{background:#121212;color:#e6e6e6 !important;border-color:#444}
+:root[data-theme='dark'] button.tab{background:#121212 !important;color:#e6e6e6 !important;border-color:#444 !important}
+:root[data-theme='dark'] button.tab.active{border-color:#e6e6e6 !important}
