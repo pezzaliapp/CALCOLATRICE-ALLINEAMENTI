@@ -1,0 +1,35 @@
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
+:root{--ring:#0a0a0a;--muted:#666;--line:#e8e8e8;--bg:#fafafa}
+.site-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
+.brand h1{margin:0;font-size:22px}
+.subtitle{margin:2px 0 0;color:var(--muted);font-size:13px}
+.install-btn{padding:8px 12px;border:1px solid #ccc;border-radius:8px;background:#fff;cursor:pointer}
+main{padding:12px}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tab{padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
+.tab.active{border-color:#111}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.card{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.card.full{grid-column:1/-1}
+.card.actions{display:flex;gap:8px;align-items:center}
+label{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+input,select,textarea,button{font:inherit}
+input,select,textarea{padding:8px;border:1px solid #ccc;border-radius:8px}
+textarea{width:100%;resize:vertical}
+button{padding:10px 14px;border:1px solid #ccc;border-radius:8px;background:#111;color:#fff;cursor:pointer}
+button.secondary{background:#fff;color:#111}
+button.ghost{background:#fff;color:#111;border-style:dashed}
+.row-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.result{margin-top:8px;color:#111;font-weight:600}
+.muted{color:var(--muted);font-size:12px}
+.site-footer{padding:16px;text-align:center;color:#777;border-top:1px solid var(--line);background:var(--bg)}
+@media (max-width:960px){
+  .card{grid-column:span 12}
+  .row-4{grid-template-columns:repeat(2,1fr)}
+  .row-3{grid-template-columns:repeat(2,1fr)}
+}
