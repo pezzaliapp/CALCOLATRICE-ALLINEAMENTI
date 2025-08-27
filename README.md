@@ -91,7 +91,7 @@ Dopo aver caricato la repo, abilita **GitHub Pages** in:
 *Settings → Pages → Deploy from a branch → main*  
 
 Il sito sarà disponibile all’indirizzo:  
-`https://<tuo-utente>.github.io/Calcolatrice-Allineamenti/`
+`https://www.alessandropezzali.it/CALCOLATRICE-ALLINEAMENTI/`
 
 ---
 
