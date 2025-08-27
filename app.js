@@ -204,4 +204,93 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js');
   });
+
+/* ===== I18N + THEME (minipatch) ===== */
+(function () {
+  // Dizionario essenziale IT/EN
+  const I18N = {
+    IT: {
+      title: "Calcolatrice Allineamenti",
+      subtitle: "Camber · Caster · Toe | Gradi ↔ mm | Report",
+      tabs: ["Allineamento", "Conversioni", "Info"],
+      btn: { install: "Installa", calc: "Calcola", reset: "Reset", save: "Esporta report .txt" },
+      strategies: {
+        A: "A) Split 50/50 (volante centrato)",
+        B: "B) Preserva differenza L/R",
+        C: "C) Centra volante (L = R)"
+      }
+    },
+    EN: {
+      title: "Wheel Alignment Calculator",
+      subtitle: "Camber · Caster · Toe | Deg ↔ mm | Report",
+      tabs: ["Alignment", "Converters", "Info"],
+      btn: { install: "Install", calc: "Compute", reset: "Reset", save: "Export report .txt" },
+      strategies: {
+        A: "A) Split 50/50 (center steering)",
+        B: "B) Preserve L/R difference",
+        C: "C) Center steering (L = R)"
+      }
+    }
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const q = (sel) => document.querySelector(sel);
+  const qa = (sel) => Array.from(document.querySelectorAll(sel));
+
+  // ---- Lingua ----
+  let LANG = localStorage.getItem("lang") || "IT";
+
+  function applyLang() {
+    const t = I18N[LANG]; if (!t) return;
+    document.title = `${t.title} (PWA)`;
+    const h1 = q(".brand h1"); if (h1) h1.textContent = t.title;
+    const sub = q(".subtitle"); if (sub) sub.textContent = t.subtitle;
+
+    const tabs = qa(".tabs .tab");
+    if (tabs[0]) tabs[0].textContent = t.tabs[0];
+    if (tabs[1]) tabs[1].textContent = t.tabs[1];
+    if (tabs[2]) tabs[2].textContent = t.tabs[2];
+
+    const ib = $("installBtn"); if (ib) ib.textContent = t.btn.install;
+    const cb = $("calcBtn");    if (cb) cb.textContent = t.btn.calc;
+    const rb = $("resetBtn");   if (rb) rb.textContent = t.btn.reset;
+    const sb = $("saveBtn");    if (sb) sb.textContent = t.btn.save;
+
+    // Strategie (select)
+    const sel = $("strategy");
+    if (sel && sel.options.length >= 3) {
+      sel.options[0].text = t.strategies.A;
+      sel.options[1].text = t.strategies.B;
+      sel.options[2].text = t.strategies.C;
+    }
+
+    const langBtn = $("langBtn");
+    if (langBtn) langBtn.textContent = LANG; // mostra IT o EN
+  }
+
+  // Listener pulsante lingua
+  $("langBtn")?.addEventListener("click", () => {
+    LANG = LANG === "IT" ? "EN" : "IT";
+    localStorage.setItem("lang", LANG);
+    applyLang();
+  });
+
+  // ---- Tema ----
+  const savedTheme = localStorage.getItem("theme"); // 'light' | 'dark'
+  if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+
+  $("themeBtn")?.addEventListener("click", () => {
+    const curr = document.documentElement.getAttribute("data-theme");
+    const next = curr === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+
+  // Applica lingua all’avvio (dopo che il DOM è pronto)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyLang, { once: true });
+  } else {
+    applyLang();
+  }
+})();
 }
