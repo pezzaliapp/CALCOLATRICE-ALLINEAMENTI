@@ -68,6 +68,27 @@ Works **offline** and can be installed on smartphone, tablet or PC via GitHub Pa
 
 ---
 
+## 🎯 Perché usare questa App
+
+Questa PWA **non sostituisce** una macchina di allineamento professionale:  
+non misura direttamente le geometrie, ma è uno **strumento di supporto pratico** per gommisti e officine.
+
+### 🇮🇹 Italiano
+- 🔄 **Conversione gradi ↔ mm** — utile quando costruttori e macchine usano unità diverse.  
+- ✅ **Check delle specifiche** — conferma indipendente dei limiti camber/caster.  
+- 🎚️ **Strategie toe** — supporto per decidere come distribuire le correzioni.  
+- 📝 **Report indipendente** — file `.txt` semplice da condividere o archiviare.  
+- 📱 **Sempre in tasca** — funziona offline su smartphone/tablet anche senza banca dati.
+
+### 🇬🇧 English
+- 🔄 **Degrees ↔ mm conversion** — helpful when specs and aligner speak different units.  
+- ✅ **Spec check** — independent confirmation of camber/caster limits.  
+- 🎚️ **Toe strategies** — guidance on distributing corrections.  
+- 📝 **Independent report** — simple `.txt` file for notes or customers.  
+- 📱 **Pocket tool** — works offline on mobile/tablet even without full database.
+
+---
+
 ## 📦 Repository structure
 - `index.html` → main app interface  
 - `style.css` → styles (light/dark)  
@@ -77,6 +98,7 @@ Works **offline** and can be installed on smartphone, tablet or PC via GitHub Pa
 - `icons/` → app icons (192px, 512px)  
 - `tests.html` + `tests.js` → unit tests for conversion functions  
 - `README.md` → project documentation  
+- `MANUALE_INSERIMENTO_DATI.md` → manuale rapido IT/EN  
 - `screenshot.png` → preview of the app  
 
 ---
@@ -100,6 +122,7 @@ Il sito è disponibile all’indirizzo:
 - 🌐 **PezzaliAPP – Suite di App Open Source**: https://www.pezzaliapp.com
 
 ---
+
 ## 📜 License
 © 2025 Alessandro Pezzali – PezzaliAPP  
 Rilasciato come progetto open-source a scopo educativo.  
