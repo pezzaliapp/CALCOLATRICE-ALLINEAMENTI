@@ -1,10 +1,10 @@
-// PWA install prompt
+// ==================== PWA install prompt ====================
 let deferredPrompt;
 const installBtn = document.getElementById('installBtn');
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.hidden = false;
+  if (installBtn) installBtn.hidden = false;
 });
 installBtn?.addEventListener('click', async () => {
   if (!deferredPrompt) return;
@@ -14,7 +14,7 @@ installBtn?.addEventListener('click', async () => {
   installBtn.hidden = true;
 });
 
-// Tabs
+// ==================== Tabs ====================
 document.querySelectorAll('.tab').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
@@ -24,7 +24,7 @@ document.querySelectorAll('.tab').forEach(btn => {
   });
 });
 
-// Math helpers
+// ==================== Math helpers ====================
 const degToRad = d => d * Math.PI / 180;
 const radToDeg = r => r * 180 / Math.PI;
 
@@ -43,26 +43,26 @@ function toeMMToDeg(mmPerRuota, rimInch){
 }
 const inRange = (x, lo, hi) => x >= lo && x <= hi;
 
-// UI refs
+// ==================== UI refs ====================
 const $ = id => document.getElementById(id);
 const reportEl = $('report');
 
-// Conversioni tab
-$('deg2mm').addEventListener('click', () => {
+// ==================== Conversioni tab ====================
+$('deg2mm')?.addEventListener('click', () => {
   const rim = parseFloat($('convRim').value);
   const deg = parseFloat($('degIn').value);
   if (isNaN(rim) || isNaN(deg)) return;
   $('mmOut').textContent = `${toeDegToMM(deg, rim).toFixed(3)} mm/ruota`;
 });
-$('mm2deg').addEventListener('click', () => {
+$('mm2deg')?.addEventListener('click', () => {
   const rim = parseFloat($('convRim').value);
   const mm = parseFloat($('mmIn').value);
   if (isNaN(rim) || isNaN(mm)) return;
   $('degOut').textContent = `${toeMMToDeg(mm, rim).toFixed(4)} °/ruota`;
 });
 
-// Calcolo allineamento
-$('calcBtn').addEventListener('click', () => {
+// ==================== Calcolo allineamento ====================
+$('calcBtn')?.addEventListener('click', () => {
   const rim = parseFloat($('rimInch').value);
   const strat = $('strategy').value;
 
@@ -178,15 +178,15 @@ $('calcBtn').addEventListener('click', () => {
   lines.push(" - Conversione mm: stima al diametro cerchio (piccoli angoli).");
   lines.push("=========================================================");
 
-  reportEl.value = lines.join('\\n');
+  reportEl.value = lines.join('\n');
 });
 
-$('resetBtn').addEventListener('click', () => {
+$('resetBtn')?.addEventListener('click', () => {
   reportEl.value = '';
 });
 
-// Esporta .txt
-$('saveBtn').addEventListener('click', () => {
+// ==================== Export .txt ====================
+$('saveBtn')?.addEventListener('click', () => {
   const txt = reportEl.value || 'Nessun report.';
   const blob = new Blob([txt], {type:'text/plain'});
   const a = document.createElement('a');
@@ -199,15 +199,15 @@ $('saveBtn').addEventListener('click', () => {
   setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
 });
 
-// Register service worker
+// ==================== Service worker (registrazione separata) ====================
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js');
   });
+}
 
-/* ===== I18N + THEME (minipatch) ===== */
+// ==================== I18N + Theme (indipendenti dal SW) ====================
 (function () {
-  // Dizionario essenziale IT/EN
   const I18N = {
     IT: {
       title: "Calcolatrice Allineamenti",
@@ -233,64 +233,55 @@ if ('serviceWorker' in navigator) {
     }
   };
 
-  const $ = (id) => document.getElementById(id);
   const q = (sel) => document.querySelector(sel);
   const qa = (sel) => Array.from(document.querySelectorAll(sel));
-
-  // ---- Lingua ----
   let LANG = localStorage.getItem("lang") || "IT";
 
   function applyLang() {
     const t = I18N[LANG]; if (!t) return;
     document.title = `${t.title} (PWA)`;
-    const h1 = q(".brand h1"); if (h1) h1.textContent = t.title;
-    const sub = q(".subtitle"); if (sub) sub.textContent = t.subtitle;
+    q(".brand h1") && (q(".brand h1").textContent = t.title);
+    q(".subtitle") && (q(".subtitle").textContent = t.subtitle);
 
     const tabs = qa(".tabs .tab");
     if (tabs[0]) tabs[0].textContent = t.tabs[0];
     if (tabs[1]) tabs[1].textContent = t.tabs[1];
     if (tabs[2]) tabs[2].textContent = t.tabs[2];
 
-    const ib = $("installBtn"); if (ib) ib.textContent = t.btn.install;
-    const cb = $("calcBtn");    if (cb) cb.textContent = t.btn.calc;
-    const rb = $("resetBtn");   if (rb) rb.textContent = t.btn.reset;
-    const sb = $("saveBtn");    if (sb) sb.textContent = t.btn.save;
+    document.getElementById("installBtn") && (document.getElementById("installBtn").textContent = t.btn.install);
+    document.getElementById("calcBtn") && (document.getElementById("calcBtn").textContent = t.btn.calc);
+    document.getElementById("resetBtn") && (document.getElementById("resetBtn").textContent = t.btn.reset);
+    document.getElementById("saveBtn") && (document.getElementById("saveBtn").textContent = t.btn.save);
 
-    // Strategie (select)
-    const sel = $("strategy");
+    const sel = document.getElementById("strategy");
     if (sel && sel.options.length >= 3) {
       sel.options[0].text = t.strategies.A;
       sel.options[1].text = t.strategies.B;
       sel.options[2].text = t.strategies.C;
     }
 
-    const langBtn = $("langBtn");
-    if (langBtn) langBtn.textContent = LANG; // mostra IT o EN
+    const langBtn = document.getElementById("langBtn");
+    if (langBtn) langBtn.textContent = LANG;
   }
 
-  // Listener pulsante lingua
-  $("langBtn")?.addEventListener("click", () => {
+  document.getElementById("langBtn")?.addEventListener("click", () => {
     LANG = LANG === "IT" ? "EN" : "IT";
     localStorage.setItem("lang", LANG);
     applyLang();
   });
 
-  // ---- Tema ----
   const savedTheme = localStorage.getItem("theme"); // 'light' | 'dark'
   if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
-
-  $("themeBtn")?.addEventListener("click", () => {
+  document.getElementById("themeBtn")?.addEventListener("click", () => {
     const curr = document.documentElement.getAttribute("data-theme");
     const next = curr === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
   });
 
-  // Applica lingua all’avvio (dopo che il DOM è pronto)
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", applyLang, { once: true });
   } else {
     applyLang();
   }
 })();
-}
