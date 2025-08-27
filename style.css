@@ -11,7 +11,11 @@ html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto
 }
 .brand h1{margin:0;font-size:22px}
 .subtitle{margin:2px 0 0;color:var(--muted);font-size:13px}
-.right-actions{display:flex;gap:8px;align-items:center}
+.right-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media (max-width:420px){
+  .right-actions{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .right-actions .install-btn{flex:0 0 auto;white-space:nowrap}
+}
 
 /* Pulsanti header: IT / Tema / Installa (testo sempre visibile) */
 .install-btn{
@@ -25,16 +29,25 @@ html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto
 /* ========== Layout ========== */
 main{padding:12px}
 
-/* Tabs (fix definitivo contrasto) */
-.tabs{display:flex;gap:8px;margin-bottom:12px}
+/* Tabs (sempre leggibili + responsive) */
+.tabs{
+  display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;
+}
 button.tab{
   padding:8px 12px;border:1px solid var(--line);border-radius:999px;
   background:#fff !important;color:#111 !important;cursor:pointer;
   transition:background .2s ease,border-color .2s ease,color .2s ease;
-  font-weight:600
+  font-weight:600;flex:0 0 auto;max-width:100%;white-space:nowrap;
 }
 button.tab:hover{background:#f6f6f6 !important;border-color:#999 !important}
 button.tab.active{border-color:#111 !important}
+
+/* Su schermi molto stretti: mantieni una riga con scroll orizzontale */
+@media (max-width:640px){
+  .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .tabs::-webkit-scrollbar{height:6px}
+  .tabs::-webkit-scrollbar-thumb{background:#ccc;border-radius:999px}
+}
 
 .tab-panel{display:none}
 .tab-panel.active{display:block}
@@ -61,12 +74,12 @@ button.ghost{background:#fff;color:#111;border-style:dashed}
 .muted{color:var(--muted);font-size:12px}
 .site-footer{padding:16px;text-align:center;color:#777;border-top:1px solid var(--line);background:var(--bg)}
 
-/* Row helpers (usati in index.html) */
+/* Row helpers */
 .row-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 
-/* ========== Responsive ========== */
+/* ========== Responsive grid ========== */
 @media (max-width:960px){
   .card{grid-column:span 12}
   .row-4{grid-template-columns:repeat(2,1fr)}
