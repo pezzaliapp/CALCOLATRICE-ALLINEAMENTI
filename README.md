@@ -90,17 +90,16 @@ Works **offline** and can be installed on smartphone, tablet or PC via GitHub Pa
 Dopo aver caricato la repo, abilita **GitHub Pages** in:  
 *Settings → Pages → Deploy from a branch → main*  
 
-Il sito sarà disponibile all’indirizzo:  
+Il sito è disponibile all’indirizzo:  
 `https://www.alessandropezzali.it/CALCOLATRICE-ALLINEAMENTI/`
 
 ---
 
+## 🔗 Link utili
+- 📚 **Amazon Author – Alessandro Pezzali**: https://www.amazon.it/stores/Alessandro-Pezzali/author/B0FL13X4YR?ref_=pe_2466670_811284380&isDramIntegrated=true&shoppingPortalEnabled=true  
+- 🌐 **PezzaliAPP – Suite di App Open Source**: https://www.pezzaliapp.com
+
+---
 ## 📜 License
 © 2025 Alessandro Pezzali – PezzaliAPP  
 Rilasciato come progetto open-source a scopo educativo.  
-
-
-⸻
-
-👉 Questo README è pronto da copiare-incollare nella tua repo.
-Vuoi che ti includa anche i link diretti ai tuoi profili Amazon Author e PezzaliAPP (così chi arriva dalla repo può scoprire anche i tuoi eBook e le altre app)?
