@@ -105,7 +105,7 @@ non misura direttamente le geometrie, ma è uno **strumento di supporto pratico*
 
 ## 📷 Screenshot
 ![Screenshot](screenshot.png)
-
+![Screenshot](screenshot_1.png)
 ---
 
 ## 🌐 GitHub Pages
